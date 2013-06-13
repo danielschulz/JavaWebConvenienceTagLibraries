@@ -32,6 +32,7 @@ public class JspHtmlSpaceReducer extends BodyTagSupport {
 
     // field members
     private final Set<Pair<String, String>> set = new HashSet<Pair<String, String>>(8);
+    private boolean addedSimpleSpaces = false;
     {
         set.add(new Pair<String, String>(DOUBLE_LINE_FEED, LINE_FEED));
         set.add(new Pair<String, String>(CARRIAGE_RETURN, EMPTY));
@@ -91,10 +92,20 @@ public class JspHtmlSpaceReducer extends BodyTagSupport {
         }
     }
 
+    public void setAddedSimpleSpaces(final boolean addedSimpleSpaces) {
+        this.addedSimpleSpaces = addedSimpleSpaces;
+        if (this.addedSimpleSpaces) {
+            set.add(new Pair<String, String>(SPACE, EMPTY));
+        }
+    }
 
     // setter / getter
     @SuppressWarnings("UnusedDeclaration")
     public Set getSet() {
         return set;
+    }
+
+    public boolean isAddedSimpleSpaces() {
+        return addedSimpleSpaces;
     }
 }
